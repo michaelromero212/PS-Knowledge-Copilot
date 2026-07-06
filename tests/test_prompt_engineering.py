@@ -149,6 +149,15 @@ def test_complexity_normalization():
     assert LLMConnector._normalize_complexity("garbage") == "intermediate"
 
 
+def test_clean_answer_strips_scaffolding():
+    raw = "ANSWER:\nA P1 incident resolves in 4 hours.\n\nSOURCES:\n- incident.md"
+    assert LLMConnector._clean_answer(raw) == "A P1 incident resolves in 4 hours."
+
+
+def test_clean_answer_passthrough_when_no_markers():
+    assert LLMConnector._clean_answer("Just a plain answer.") == "Just a plain answer."
+
+
 def test_injection_blocked_in_generate_answer_without_api_key():
     # Even with no provider key, an injection attempt must never reach a model.
     conn = LLMConnector(provider="gemini")

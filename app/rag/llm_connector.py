@@ -126,12 +126,31 @@ class LLMConnector:
 
         # 4. Dispatch and clean up.
         answer = self._call_provider(system_prompt, user_prompt)
-        return self._strip_thinking(answer)
+        answer = self._strip_thinking(answer)
+        if answer.startswith("Error"):
+            return answer
+        return self._clean_answer(answer)
 
     @staticmethod
     def _strip_thinking(text: str) -> str:
         """Remove a chain-of-thought <thinking>...</thinking> block if present."""
         return re.sub(r"<thinking>.*?</thinking>", "", text, flags=re.S | re.I).strip()
+
+    @staticmethod
+    def _clean_answer(text: str) -> str:
+        """
+        Reduce the model's scaffolded output to just the answer prose.
+
+        The prompts ask the model to reply as ``ANSWER:\\n<body>\\n\\nSOURCES:\\n- ...``.
+        The UI already renders sources as dedicated cards, so we strip the
+        ``ANSWER:`` label and the trailing ``SOURCES:`` block to leave a clean,
+        readable answer. If the markers are absent, the text is returned as-is.
+        """
+        # Drop the trailing SOURCES section (citations are shown as cards).
+        body = re.split(r"\n\s*SOURCES?\s*:", text, maxsplit=1, flags=re.I)[0]
+        # Drop a leading "ANSWER:" label (the UI already has an "Answer" header).
+        body = re.sub(r"^\s*ANSWER\s*:\s*", "", body, flags=re.I)
+        return body.strip()
 
     def _call_provider(self, system_prompt: str, user_prompt: str) -> str:
         """Route a (system, user) prompt to the configured provider."""

@@ -5,6 +5,7 @@ import ChatInterface from './components/ChatInterface'
 import SourceCards from './components/SourceCards'
 import Sidebar from './components/Sidebar'
 import AIConnectionStatus from './components/AIConnectionStatus'
+import HowItWorks from './components/HowItWorks'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
@@ -13,6 +14,7 @@ function App() {
     const [isHealthy, setIsHealthy] = useState(null)
     const [stats, setStats] = useState(null)
     const [queryInput, setQueryInput] = useState('')
+    const [view, setView] = useState('ask')
 
     // Check API health on mount
     useEffect(() => {
@@ -54,12 +56,31 @@ function App() {
                         </div>
                     </div>
                     <div className="header-status">
+                        <nav className="header-nav">
+                            <button
+                                className={`header-nav-btn ${view === 'ask' ? 'active' : ''}`}
+                                onClick={() => setView('ask')}
+                            >
+                                Ask
+                            </button>
+                            <button
+                                className={`header-nav-btn ${view === 'how' ? 'active' : ''}`}
+                                onClick={() => setView('how')}
+                            >
+                                How it works
+                            </button>
+                        </nav>
                         <AIConnectionStatus provider="gemini" />
                     </div>
                 </div>
             </header>
 
             {/* Main Content */}
+            {view === 'how' ? (
+                <main className="app-main">
+                    <HowItWorks onTryIt={() => setView('ask')} />
+                </main>
+            ) : (
             <main className="app-main">
                 {/* Query Card */}
                 <ChatInterface
@@ -125,6 +146,7 @@ function App() {
                     </div>
                 )}
             </main>
+            )}
 
             {/* Footer */}
             <footer className="app-footer">
