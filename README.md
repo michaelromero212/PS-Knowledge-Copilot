@@ -77,7 +77,7 @@ python -m app.eval.runner --provider gemini --save results.json
 
 -   **Backend**: Python 3.11+ with FastAPI
 -   **Frontend**: React 18 + Vite
--   **LLM**: Google Gemini (`gemini-2.5-flash-lite`) by default; pluggable OpenAI, Anthropic, and local/API Hugging Face (`LaMini-Flan-T5-248M`) providers. Override the Gemini model with the `GEMINI_MODEL` env var.
+-   **LLM**: Google Gemini (`gemini-3.5-flash`) by default; pluggable OpenAI, Anthropic, and local/API Hugging Face (`LaMini-Flan-T5-248M`) providers. Override the Gemini model with the `GEMINI_MODEL` env var.
 -   **Prompt Engineering**: Versioned prompt library + offline A/B eval harness + injection/PII guardrails
 -   **Vector Store**: ChromaDB
 -   **Embeddings**: Sentence Transformers (`all-MiniLM-L6-v2`)
