@@ -45,7 +45,7 @@ function ChatInterface({
                         value={queryInput || ''}
                         onChange={(e) => setQueryInput(e.target.value)}
                         onKeyDown={handleKeyDown}
-                        placeholder="e.g., How do I optimize MERGE performance?"
+                        placeholder="e.g., What is the resolution target for a P1 incident?"
                         disabled={isLoading}
                         aria-label="Enter your question"
                         style={{ flex: 1 }}
@@ -125,7 +125,7 @@ function ChatInterface({
                     <h3 style={{
                         fontSize: '0.875rem',
                         fontWeight: 600,
-                        color: 'rgba(255, 255, 255, 0.7)',
+                        color: 'var(--color-text-secondary, #475569)',
                         marginBottom: '0.75rem'
                     }}>
                         💡 Follow-up Questions
@@ -142,22 +142,22 @@ function ChatInterface({
                                 style={{
                                     padding: '0.75rem 1rem',
                                     borderRadius: '8px',
-                                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                                    background: 'rgba(255, 255, 255, 0.05)',
-                                    color: 'rgba(255, 255, 255, 0.9)',
+                                    border: '1px solid var(--color-border, #E2E8F0)',
+                                    background: 'var(--color-bg-subtle, #F8FAFC)',
+                                    color: 'var(--color-text-primary, #1A1A1A)',
                                     fontSize: '0.875rem',
                                     textAlign: 'left',
                                     cursor: 'pointer',
                                     transition: 'all 0.2s ease',
                                 }}
                                 onMouseEnter={(e) => {
-                                    e.target.style.background = 'rgba(255, 255, 255, 0.1)'
-                                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)'
+                                    e.target.style.background = 'var(--color-primary-light, #FFF4F3)'
+                                    e.target.style.borderColor = 'var(--color-primary, #FF3621)'
                                     e.target.style.transform = 'translateX(4px)'
                                 }}
                                 onMouseLeave={(e) => {
-                                    e.target.style.background = 'rgba(255, 255, 255, 0.05)'
-                                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)'
+                                    e.target.style.background = 'var(--color-bg-subtle, #F8FAFC)'
+                                    e.target.style.borderColor = 'var(--color-border, #E2E8F0)'
                                     e.target.style.transform = 'translateX(0)'
                                 }}
                             >

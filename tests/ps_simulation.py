@@ -13,14 +13,14 @@ from app.rag.llm_connector import LLMConnector
 
 def simulate_ps_workflow():
     print("\n=======================================================")
-    print("🤖 DATABRICKS PS KNOWLEDGE COPILOT - SIMULATION RUN")
+    print("🤖 PS KNOWLEDGE COPILOT - SIMULATION RUN")
     print("=======================================================\n")
     
     # Initialize
     print("Initializing system components...")
     embedder = Embedder()
     chroma = ChromaClient(persistence_path="./data/simulation_chroma_db")
-    retriever = Retriever(use_databricks=False)
+    retriever = Retriever()
     retriever.vector_store = chroma
     llm = LLMConnector(provider="huggingface_local")
 
@@ -43,24 +43,24 @@ def simulate_ps_workflow():
     # 2. Simulate PS Questions
     ps_questions = [
         {
-            "role": "Data Engineer",
-            "query": "How do I optimize MERGE performance for a large Delta table?",
-            "intent": "Performance Tuning"
+            "role": "Service Desk Analyst",
+            "query": "What is the resolution target for a P1 incident?",
+            "intent": "Incident Management"
         },
         {
-            "role": "Solution Architect",
-            "query": "What are the best practices for Unity Catalog structure?",
-            "intent": "Governance Design"
+            "role": "Change Manager",
+            "query": "Who approves an emergency change?",
+            "intent": "Change Management"
         },
         {
-            "role": "Platform Admin",
-            "query": "When should I recommend Photon to a customer?",
-            "intent": "Capacity Planning"
+            "role": "Security Engineer",
+            "query": "What does the principle of least privilege mean?",
+            "intent": "Access Management"
         },
         {
-            "role": "Data Engineer",
-            "query": "How does Auto Loader handle schema evolution?",
-            "intent": "Ingestion Design"
+            "role": "Service Delivery Manager",
+            "query": "What is an error budget?",
+            "intent": "SLA Management"
         }
     ]
 

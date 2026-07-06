@@ -50,11 +50,11 @@ function App() {
                         </svg>
                         <div>
                             <h1>PS Knowledge Copilot</h1>
-                            <p className="header-subtitle">Databricks Professional Services</p>
+                            <p className="header-subtitle">Enterprise IT Professional Services</p>
                         </div>
                     </div>
                     <div className="header-status">
-                        <AIConnectionStatus provider="huggingface_local" />
+                        <AIConnectionStatus provider="gemini" />
                     </div>
                 </div>
             </header>
@@ -111,7 +111,7 @@ function App() {
                             <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                         <h3>Ask a Question</h3>
-                        <p>Enter a question about Databricks best practices, architecture, or optimization.</p>
+                        <p>Enter a question about IT service management, incidents, change, or access.</p>
 
                         <QuickActions onSelect={handleQuickActionSelect} />
                     </div>
@@ -129,7 +129,7 @@ function App() {
             {/* Footer */}
             <footer className="app-footer">
                 <div className="footer-content">
-                    <p>Databricks PS Knowledge Copilot • Powered by RAG + LLM</p>
+                    <p>PS Knowledge Copilot • Powered by RAG + LLM</p>
                 </div>
             </footer>
         </div>
@@ -138,10 +138,10 @@ function App() {
 
 function QuickActions({ onSelect }) {
     const quickQueries = [
-        "How do I optimize MERGE performance?",
-        "What are Unity Catalog best practices?",
-        "When should I recommend Photon?",
-        "How does Auto Loader handle schema evolution?",
+        "What is the resolution target for a P1 incident?",
+        "Who approves an emergency change?",
+        "What does least privilege mean?",
+        "What is an error budget?",
     ]
 
     return (

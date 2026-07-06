@@ -5,7 +5,7 @@ import { useState } from 'react'
  * 
  * Displays the source documents with AI analysis capabilities
  */
-function SourceCards({ sources, provider = 'huggingface_api' }) {
+function SourceCards({ sources, provider = 'gemini' }) {
     const [analyzing, setAnalyzing] = useState({})
     const [analyses, setAnalyses] = useState({})
 
@@ -89,9 +89,10 @@ function SourceCards({ sources, provider = 'huggingface_api' }) {
                                     marginTop: '0.75rem',
                                     padding: '0.5rem 1rem',
                                     borderRadius: '6px',
-                                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                                    background: 'rgba(255, 255, 255, 0.1)',
-                                    color: 'rgba(255, 255, 255, 0.9)',
+                                    border: '1px solid var(--color-primary, #FF3621)',
+                                    background: 'var(--color-primary-light, #FFF4F3)',
+                                    color: 'var(--color-primary, #FF3621)',
+                                    fontWeight: 600,
                                     fontSize: '0.8125rem',
                                     cursor: analyzing[index] ? 'not-allowed' : 'pointer',
                                     transition: 'all 0.2s ease',
@@ -122,8 +123,8 @@ function SourceCards({ sources, provider = 'huggingface_api' }) {
                                 marginTop: '1rem',
                                 padding: '1rem',
                                 borderRadius: '8px',
-                                background: 'rgba(255, 255, 255, 0.05)',
-                                border: '1px solid rgba(255, 255, 255, 0.1)'
+                                background: 'var(--color-bg-subtle, #F8FAFC)',
+                                border: '1px solid var(--color-border, #E2E8F0)'
                             }}>
                                 <div style={{
                                     display: 'flex',
@@ -137,7 +138,7 @@ function SourceCards({ sources, provider = 'huggingface_api' }) {
                                     <span style={{
                                         fontSize: '0.875rem',
                                         fontWeight: 600,
-                                        color: 'rgba(255, 255, 255, 0.9)'
+                                        color: 'var(--color-text-primary, #1A1A1A)'
                                     }}>
                                         AI Analysis
                                     </span>
@@ -160,7 +161,7 @@ function SourceCards({ sources, provider = 'huggingface_api' }) {
                                 <p style={{
                                     fontSize: '0.875rem',
                                     lineHeight: '1.5',
-                                    color: 'rgba(255, 255, 255, 0.8)',
+                                    color: 'var(--color-text-secondary, #475569)',
                                     marginBottom: '0.75rem'
                                 }}>
                                     {analyses[index].summary}
@@ -180,9 +181,9 @@ function SourceCards({ sources, provider = 'huggingface_api' }) {
                                                     borderRadius: '12px',
                                                     fontSize: '0.75rem',
                                                     fontWeight: 500,
-                                                    background: 'rgba(255, 255, 255, 0.1)',
-                                                    color: 'rgba(255, 255, 255, 0.8)',
-                                                    border: '1px solid rgba(255, 255, 255, 0.15)'
+                                                    background: 'var(--color-primary-light, #FFF4F3)',
+                                                    color: 'var(--color-primary, #FF3621)',
+                                                    border: '1px solid var(--color-border, #E2E8F0)'
                                                 }}
                                             >
                                                 {tag}

@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
  * 
  * Displays the current AI provider connection status with visual indicators
  */
-function AIConnectionStatus({ provider = 'huggingface_local', onStatusChange }) {
+function AIConnectionStatus({ provider = 'gemini', onStatusChange }) {
     const [status, setStatus] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)

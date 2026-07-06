@@ -13,7 +13,7 @@ const API_BASE = '/api';
  * @param {string} provider - LLM provider to use
  * @returns {Promise<Object>} - The query response
  */
-export async function queryKnowledgeBase(query, k = 3, provider = 'huggingface_local') {
+export async function queryKnowledgeBase(query, k = 3, provider = 'gemini') {
     const response = await fetch(`${API_BASE}/query`, {
         method: 'POST',
         headers: {

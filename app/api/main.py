@@ -1,5 +1,5 @@
 """
-FastAPI Backend for Databricks PS Knowledge Copilot
+FastAPI Backend for PS Knowledge Copilot
 
 This API serves as the backend for the React frontend, providing:
 - /api/query - Ask questions to the knowledge base
@@ -23,6 +23,13 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
+
+# Load environment variables from .env before anything reads them.
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 # Add project root to path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
@@ -64,7 +71,7 @@ def get_retriever() -> Retriever:
     """Get or create the retriever instance."""
     global _retriever
     if _retriever is None:
-        _retriever = Retriever(use_databricks=False)
+        _retriever = Retriever()
     return _retriever
 
 
@@ -80,12 +87,12 @@ def get_llm(provider: str) -> LLMConnector:
 async def lifespan(app: FastAPI):
     """Application lifespan handler for startup/shutdown."""
     # Startup
-    print("🚀 Starting Databricks PS Knowledge Copilot API...")
+    print("🚀 Starting PS Knowledge Copilot API...")
     
     # Pre-warm the LLM so it's ready for the first request
     print("🔄 Pre-warming LLM connection...")
     try:
-        llm = get_llm("huggingface_local")
+        llm = get_llm("gemini")
         connection_status = llm.check_connection()
         status = connection_status.get("status", "unknown")
         model = connection_status.get("model", "unknown")
@@ -113,8 +120,8 @@ async def lifespan(app: FastAPI):
 
 # Create FastAPI app
 app = FastAPI(
-    title="Databricks PS Knowledge Copilot API",
-    description="RAG-powered knowledge assistant for Databricks Professional Services",
+    title="PS Knowledge Copilot API",
+    description="RAG-powered knowledge assistant for enterprise IT Professional Services",
     version="1.0.0",
     lifespan=lifespan,
     docs_url="/api/docs",
@@ -378,7 +385,7 @@ async def analyze_document(request: Request, analysis_request: AnalysisRequest):
 
 
 @app.get("/api/ai-status", response_model=AIStatusResponse, tags=["AI"])
-async def get_ai_status(provider: str = "huggingface_local"):
+async def get_ai_status(provider: str = "gemini"):
     """
     Check the connection status of an AI provider.
     

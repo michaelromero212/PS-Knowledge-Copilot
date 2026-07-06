@@ -48,11 +48,11 @@ def test_ingestion_and_retrieval():
     print("Upsert passed.")
 
     print("Testing Retrieval...")
-    retriever = Retriever(use_databricks=False)
+    retriever = Retriever()
     # Mock the vector store in retriever to use our test db
     retriever.vector_store = chroma 
     
-    results = retriever.retrieve("MERGE performance", k=1)
+    results = retriever.retrieve("P1 incident resolution target", k=1)
     assert len(results) > 0, "No results retrieved"
     print(f"Retrieved: {results[0]['metadata']['source']}")
     print("Retrieval passed.")

@@ -1,4 +1,4 @@
-# Databricks PS Knowledge Copilot - React Frontend
+# PS Knowledge Copilot - React Frontend
 
 Modern React + Vite frontend for the PS Knowledge Copilot.
 
@@ -41,7 +41,7 @@ npm run dev
 
 ## Features
 
-- **Modern UI**: Clean, responsive design with Databricks branding
+- **Modern UI**: Clean, responsive design
 - **Real-time Queries**: Instant search with context-aware answers
 - **Source Citations**: Shows chunked document sources
 - **Quick Actions**: Pre-built example queries

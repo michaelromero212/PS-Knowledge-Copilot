@@ -25,7 +25,7 @@ export function useRAG() {
             const response = await queryKnowledgeBase(
                 queryText,
                 options.k || 3,
-                options.provider || 'huggingface_local'
+                options.provider || 'gemini'
             );
 
             setResult(response);

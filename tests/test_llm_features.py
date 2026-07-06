@@ -14,7 +14,7 @@ def test_ai_status():
     """Test AI connection status endpoint"""
     print("\n🔍 Testing AI Status Endpoint...")
     
-    response = requests.get(f"{BASE_URL}/api/ai-status?provider=huggingface_api")
+    response = requests.get(f"{BASE_URL}/api/ai-status?provider=gemini")
     
     if response.status_code == 200:
         data = response.json()
@@ -33,14 +33,16 @@ def test_analyze():
     print("\n📝 Testing Document Analysis Endpoint...")
     
     test_text = """
-    Delta Lake is an open-source storage framework that enables building a
-    Lakehouse architecture with compute engines including Spark, PrestoDB,
-    Flink, Trino, and Hive and APIs for Scala, Java, Rust, Ruby, and Python.
+    An incident is any unplanned interruption to an IT service. The goal of
+    incident management is to restore normal service operation as quickly as
+    possible while minimizing business impact. Priority is derived from impact
+    and urgency, and P1 incidents carry the tightest response and resolution
+    targets.
     """
-    
+
     payload = {
         "text": test_text,
-        "provider": "huggingface_api"
+        "provider": "gemini"
     }
     
     response = requests.post(
@@ -66,9 +68,9 @@ def test_query_with_followup():
     print("\n💬 Testing Query with Follow-up Questions...")
     
     payload = {
-        "query": "What is Delta Lake?",
+        "query": "What is the resolution target for a P1 incident?",
         "k": 3,
-        "provider": "huggingface_api"
+        "provider": "gemini"
     }
     
     response = requests.post(
@@ -110,7 +112,7 @@ def main():
             return
     except requests.exceptions.ConnectionError:
         print("❌ Cannot connect to backend. Please start the server:")
-        print("   cd /path/to/Databricks-PS-Knowledge-Copilot")
+        print("   cd /path/to/PS-Knowledge-Copilot")
         print("   source venv/bin/activate")
         print("   uvicorn app.api.main:app --reload --port 8000")
         return

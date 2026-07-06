@@ -1,5 +1,5 @@
 {
-    "name": "databricks-ps-copilot-frontend",
+    "name": "ps-knowledge-copilot-frontend",
     "private": true,
     "version": "1.0.0",
     "type": "module",

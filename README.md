@@ -1,11 +1,11 @@
-# 🧠 Databricks PS Knowledge Copilot
+# 🧠 PS Knowledge Copilot
 
-An internal AI "Knowledge Assistant" for Databricks Professional Services (PS) teams. This tool ingests technical documentation and provides instant, accurate answers to complex consulting questions using Retrieval-Augmented Generation (RAG).
+An internal AI "Knowledge Assistant" for enterprise IT Professional Services (PS) teams. This tool ingests IT service management documentation — incident and change management, ServiceNow workflows, SLAs, access management, and more — and provides instant, accurate answers to complex support questions using Retrieval-Augmented Generation (RAG).
 
 ## 📸 Screenshots
 
 ### Main Interface
-The clean, modern interface features a consolidated AI connection status pill in the header showing the active LLM provider (Huggingface Local / LaMini-Flan-T5-248M), a search input, and quick-action example questions to get started instantly.
+The clean, modern interface features a consolidated AI connection status pill in the header showing the active LLM provider (Google Gemini), a search input, and quick-action example questions to get started instantly.
 
 ![Main Interface](docs/images/main_interface.png)
 
@@ -26,7 +26,7 @@ Click "Analyze with AI" on any retrieved source to get an instant summary, relev
 ---
 
 ### Full Interface with Source Citations
-The complete view shows AI-powered answers with intelligent source citations from 12 enterprise knowledge docs (Slack threads, Google Drive, Confluence, email digests), each linked to their original chunk and source file.
+The complete view shows AI-powered answers with intelligent source citations from the enterprise IT knowledge base (Slack threads, Google Drive, Confluence, email digests), each linked to their original chunk and source file.
 
 ![Full Interface](docs/images/full_interface.png)
 
@@ -35,7 +35,7 @@ The complete view shows AI-powered answers with intelligent source citations fro
 ### Core Functionality
 -   **RAG Architecture**: Retrieves relevant context from ingested docs before answering.
 -   **Local AI**: Uses a free, local Hugging Face model (`LaMini-Flan-T5`) for privacy and cost-efficiency.
--   **Vector Search**: Powered by ChromaDB (local) or Databricks Vector Search (cloud).
+-   **Vector Search**: Powered by ChromaDB with Sentence-Transformers embeddings.
 -   **Modern React UI**: Clean, responsive interface with real-time status indicators and example queries.
 -   **FastAPI Backend**: High-performance async API with automatic documentation.
 -   **Source Citations**: Every answer includes references to the source documents with relevance scores.
@@ -49,7 +49,24 @@ The complete view shows AI-powered answers with intelligent source citations fro
 -   **🔌 AI Connection Status**: Real-time monitoring of LLM provider health with visual indicators
 -   **🎯 Interactive Question Chips**: Click any follow-up question to instantly trigger a new query
 
+### 🧪 Prompt Engineering Layer
+The prompts are treated as versioned, testable artifacts rather than inline strings — the core of a disciplined prompt-engineering workflow:
+-   **📚 Versioned Prompt Library** (`app/prompts/library.py`): Every prompt is a named, versioned `PromptTemplate` recording its **technique** (zero-shot, few-shot, chain-of-thought, structured output) and a written **rationale** for its design.
+-   **🔬 A/B Evaluation Harness** (`app/eval/`): Runs each prompt variant against a golden dataset and scores it on citation accuracy, format adherence, grounding/faithfulness, keyword recall, and appropriate refusal — a data-driven loop for measuring prompt changes. Runs offline (free, deterministic) or against a live provider.
+-   **🧱 Structured Outputs**: Capable models (Gemini/OpenAI/Anthropic) use a strict-JSON contract with native JSON mode; small local models fall back to delimiter parsing.
+-   **🛡️ Safety Guardrails** (`app/prompts/guardrails.py`): Prompt-injection detection (blocks override/jailbreak attempts), PII redaction (emails, SSNs, API tokens), and untrusted-context fencing to defend against *indirect* injection via poisoned documents.
+
+```bash
+# Compare prompt variants offline (no API key needed):
+python -m app.eval.runner
+
+# Evaluate against a live provider:
+python -m app.eval.runner --provider gemini --save results.json
+```
+
 ### 🔒 Security & Best Practices
+-   **Prompt-Injection Defense**: Adversarial inputs blocked before reaching the LLM; retrieved context fenced as untrusted data
+-   **PII Redaction**: Emails, SSNs, credit cards, and API tokens scrubbed before any third-party API call
 -   **Input Validation**: Max length limits (500 chars for queries, 5000 for analysis)
 -   **Rate Limiting**: 20 requests/min for queries, 10/min for analysis to prevent abuse
 -   **Security Headers**: X-Frame-Options, X-Content-Type-Options, XSS Protection
@@ -60,7 +77,8 @@ The complete view shows AI-powered answers with intelligent source citations fro
 
 -   **Backend**: Python 3.11+ with FastAPI
 -   **Frontend**: React 18 + Vite
--   **LLM**: Hugging Face (`MBZUAI/LaMini-Flan-T5-248M`)
+-   **LLM**: Google Gemini (`gemini-2.5-flash`) by default; pluggable OpenAI, Anthropic, and local/API Hugging Face (`LaMini-Flan-T5-248M`) providers
+-   **Prompt Engineering**: Versioned prompt library + offline A/B eval harness + injection/PII guardrails
 -   **Vector Store**: ChromaDB
 -   **Embeddings**: Sentence Transformers (`all-MiniLM-L6-v2`)
 
@@ -69,7 +87,7 @@ The complete view shows AI-powered answers with intelligent source citations fro
 1.  **Clone the repository**:
     ```bash
     git clone <repo-url>
-    cd Databricks-PS-Knowledge-Copilot
+    cd PS-Knowledge-Copilot
     ```
 
 2.  **Create Virtual Environment & Install Backend Dependencies**:
@@ -79,14 +97,17 @@ The complete view shows AI-powered answers with intelligent source citations fro
     pip install -r requirements.txt
     ```
 
-3.  **Configure Environment** (Optional):
+3.  **Configure Environment**:
     ```bash
     # Copy environment example
     cp .env.example .env
-    
-    # Edit .env to add API keys (optional - local model works without keys)
-    # HUGGINGFACE_API_KEY=your_key_here
-    # OPENAI_API_KEY=your_key_here (optional)
+
+    # Add your Gemini key (default provider). Get one at:
+    # https://aistudio.google.com/app/apikey
+    # GEMINI_API_KEY=your_key_here
+    #
+    # Other providers are optional; the local Hugging Face model needs no key.
+    # OPENAI_API_KEY / ANTHROPIC_API_KEY / HUGGINGFACE_API_KEY
     ```
 
 4.  **Install Frontend Dependencies**:
@@ -112,27 +133,27 @@ The complete view shows AI-powered answers with intelligent source citations fro
     
     The app will open at `http://localhost:5173`.
 
-## 👥 How Databricks PS Consultants Use This
+## 👥 How IT PS Teams Use This
 
-This tool is designed to reduce "tribal knowledge" loss and speed up delivery.
+This tool is designed to reduce "tribal knowledge" loss and speed up service delivery.
 
-### 1. The Data Engineer 🛠️
-**Scenario**: Optimizing a slow ETL pipeline.
--   **Query**: *"How do I optimize MERGE performance?"*
--   **Result**: The Copilot suggests Z-Ordering, pruning, and Auto Optimize, citing `delta_lake_performance.md`.
--   **Benefit**: Saves hours of searching through Slack or Wiki.
+### 1. The Service Desk Analyst 🛠️
+**Scenario**: Triaging an urgent outage.
+-   **Query**: *"What is the resolution target for a P1 incident?"*
+-   **Result**: The Copilot returns the 4-hour resolution / 15-minute response targets, citing `incident_management_guide.md`.
+-   **Benefit**: Saves time searching through Slack or Confluence during a live incident.
 
-### 2. The Solution Architect 🏗️
-**Scenario**: Designing a governance model for a large enterprise.
--   **Query**: *"What is the best way to structure Unity Catalog?"*
--   **Result**: Recommends the 3-level namespace (`catalog.schema.table`) and segregating environments by catalog.
--   **Benefit**: Ensures architectural consistency across engagements.
+### 2. The Change Manager 🏗️
+**Scenario**: Approving a time-sensitive fix.
+-   **Query**: *"Who approves an emergency change?"*
+-   **Result**: Explains the Emergency CAB (ECAB) process and retrospective documentation, citing `change_management_process.md`.
+-   **Benefit**: Ensures process consistency and audit readiness.
 
-### 3. The Platform Admin 🔐
-**Scenario**: Planning capacity and compute types.
--   **Query**: *"When should I recommend Photon?"*
--   **Result**: Advises using Photon for BI and heavy aggregations, citing `photon_engine.md`.
--   **Benefit**: Provides authoritative, documented backing for recommendations.
+### 3. The Security Engineer 🔐
+**Scenario**: Reviewing access for a new hire.
+-   **Query**: *"What does the principle of least privilege mean?"*
+-   **Result**: Summarizes least privilege and RBAC guidance, citing `identity_access_management.md`.
+-   **Benefit**: Provides authoritative, documented backing for access decisions.
 
 ## 🔄 Ingestion Workflow
 
@@ -182,4 +203,4 @@ python tests/test_llm_features.py
 
 ## 📝 License
 
-Internal tool for Databricks Professional Services teams.
+Internal tool for enterprise IT Professional Services teams.

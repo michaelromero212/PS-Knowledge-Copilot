@@ -1,13 +1,13 @@
 /* ============================================
-   DATABRICKS PS KNOWLEDGE COPILOT - CSS
+   PS KNOWLEDGE COPILOT - CSS
    Modern Design System with WCAG Compliance
    ============================================ */
 
 /* ---- CSS Custom Properties ---- */
 :root {
-    /* Colors - Databricks Brand Palette */
+    /* Colors - Brand Palette */
     --color-primary: #FF3621;
-    /* Databricks Red */
+    /* Primary Red */
     --color-primary-dark: #E02E1B;
     --color-primary-light: #FFF4F3;
 

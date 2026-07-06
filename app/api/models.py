@@ -11,11 +11,11 @@ from enum import Enum
 
 class LLMProvider(str, Enum):
     """Available LLM providers."""
+    GEMINI = "gemini"
     OPENAI = "openai"
     ANTHROPIC = "anthropic"
     HUGGINGFACE_LOCAL = "huggingface_local"
     HUGGINGFACE_API = "huggingface_api"
-    DATABRICKS = "databricks"
 
 
 # ============= Query Endpoint =============
@@ -30,16 +30,16 @@ class QueryRequest(BaseModel):
     )
     k: int = Field(default=3, ge=1, le=10, description="Number of documents to retrieve")
     provider: LLMProvider = Field(
-        default=LLMProvider.HUGGINGFACE_LOCAL, 
+        default=LLMProvider.GEMINI,
         description="LLM provider to use for answer generation"
     )
 
     class Config:
         json_schema_extra = {
             "example": {
-                "query": "How do I optimize MERGE performance?",
+                "query": "What is the resolution target for a P1 incident?",
                 "k": 3,
-                "provider": "huggingface_local"
+                "provider": "gemini"
             }
         }
 
@@ -64,16 +64,16 @@ class QueryResponse(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
-                "answer": "To optimize MERGE performance, you should...",
+                "answer": "A P1 (Critical) incident has a target resolution of 4 hours...",
                 "sources": [
                     {
-                        "content": "MERGE operations can be optimized by...",
-                        "source": "delta_lake_performance.md",
+                        "content": "P1 (Critical) incidents have a target resolution of 4 hours...",
+                        "source": "incident_management_guide.md",
                         "chunk_index": 0
                     }
                 ],
-                "query": "How do I optimize MERGE performance?",
-                "provider": "huggingface_local",
+                "query": "What is the resolution target for a P1 incident?",
+                "provider": "gemini",
                 "processing_time_ms": 1234.56
             }
         }
@@ -150,7 +150,7 @@ class AnalysisRequest(BaseModel):
         description="Text to analyze"
     )
     provider: LLMProvider = Field(
-        default=LLMProvider.HUGGINGFACE_API,
+        default=LLMProvider.GEMINI,
         description="LLM provider to use for analysis"
     )
 
