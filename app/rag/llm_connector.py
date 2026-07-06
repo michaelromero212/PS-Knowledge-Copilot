@@ -376,17 +376,43 @@ class LLMConnector:
     # ------------------------------------------------------------------ #
 
     def check_connection(self) -> dict:
-        """Check if the LLM provider is accessible."""
+        """
+        Check if the LLM provider is accessible.
+
+        IMPORTANT: this must NOT consume a generation request. On free-tier
+        Gemini the generation quota is tiny (~20/day/model), so probing with a
+        real prompt would exhaust the day's budget after a few status refreshes.
+        For Gemini we list models instead (a separate, cheap quota); for other
+        providers we fall back to a lightweight generation probe.
+        """
+        model_name = self._model_name()
         try:
+            if self.provider == "gemini":
+                ok, details = self._gemini_healthcheck()
+                status = "connected" if ok else "disconnected"
+                return {"status": status, "model": model_name, "details": details}
+
             test_response = self._call_provider("", "Say 'OK' if you can read this.")
-
-            model_name = self._model_name()
-
             if "Error" in test_response:
                 return {"status": "disconnected", "model": model_name, "details": test_response}
             return {"status": "connected", "model": model_name, "details": "Connection successful"}
         except Exception as e:
-            return {"status": "disconnected", "model": None, "details": str(e)}
+            return {"status": "disconnected", "model": model_name, "details": str(e)}
+
+    def _gemini_healthcheck(self) -> tuple[bool, str]:
+        """Verify Gemini is reachable without spending a generation request."""
+        if not self.gemini_api_key:
+            return False, "Gemini API key not found. Set GEMINI_API_KEY."
+        try:
+            import google.generativeai as genai
+
+            genai.configure(api_key=self.gemini_api_key)
+            # Listing models validates the key + connectivity on a quota that is
+            # separate from (and far larger than) the generateContent quota.
+            next(iter(genai.list_models()))
+            return True, "Connection successful"
+        except Exception as e:
+            return False, f"Error reaching Gemini: {str(e)}"
 
     def _model_name(self) -> Optional[str]:
         return {
