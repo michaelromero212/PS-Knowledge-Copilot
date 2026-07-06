@@ -77,7 +77,7 @@ python -m app.eval.runner --provider gemini --save results.json
 
 -   **Backend**: Python 3.11+ with FastAPI
 -   **Frontend**: React 18 + Vite
--   **LLM**: Google Gemini (`gemini-2.5-flash`) by default; pluggable OpenAI, Anthropic, and local/API Hugging Face (`LaMini-Flan-T5-248M`) providers
+-   **LLM**: Google Gemini (`gemini-2.5-flash-lite`) by default; pluggable OpenAI, Anthropic, and local/API Hugging Face (`LaMini-Flan-T5-248M`) providers. Override the Gemini model with the `GEMINI_MODEL` env var.
 -   **Prompt Engineering**: Versioned prompt library + offline A/B eval harness + injection/PII guardrails
 -   **Vector Store**: ChromaDB
 -   **Embeddings**: Sentence Transformers (`all-MiniLM-L6-v2`)
@@ -117,21 +117,34 @@ python -m app.eval.runner --provider gemini --save results.json
     cd ..
     ```
 
-5.  **Run the Backend** (Terminal 1):
+5.  **Run everything with one command** (recommended):
+    ```bash
+    ./dev.sh
+    ```
+    This starts the backend (`:8000`, which auto-connects to Gemini on boot) **and**
+    the frontend (`:5173`) together. Open `http://localhost:5173`. Press `Ctrl+C` to stop both.
+
+    > ⚠️ Running only `npm run dev` starts the frontend alone — every query will show
+    > "unknown error" because there is no backend to answer it. Use `./dev.sh` (or start
+    > both servers manually below).
+
+    <details>
+    <summary>Or run the two servers manually</summary>
+
+    **Backend** (Terminal 1):
     ```bash
     source venv/bin/activate
     uvicorn app.api.main:app --reload --port 8000
     ```
-    
-    The API will be available at `http://localhost:8000` with docs at `http://localhost:8000/api/docs`.
+    API + docs at `http://localhost:8000/api/docs`.
 
-6.  **Run the Frontend** (Terminal 2):
+    **Frontend** (Terminal 2):
     ```bash
     cd frontend
     npm run dev
     ```
-    
-    The app will open at `http://localhost:5173`.
+    App at `http://localhost:5173`.
+    </details>
 
 ## 👥 How IT PS Teams Use This
 

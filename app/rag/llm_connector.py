@@ -39,7 +39,10 @@ from app.prompts.guardrails import check_user_input, wrap_untrusted_context
 class LLMConfig:
     """Centralized LLM configuration."""
 
-    GEMINI_MODEL = "gemini-2.5-flash"  # Fast, cost-effective, supports JSON mode
+    # gemini-2.5-flash-lite: fast, supports JSON mode, and has a far more
+    # generous free-tier quota than gemini-2.5-flash (20 req/day) — so the app
+    # stays usable. Override with the GEMINI_MODEL env var if desired.
+    GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-lite")
     OPENAI_MODEL = "gpt-4o-mini"  # Cost-effective default
     ANTHROPIC_MODEL = "claude-3-haiku-20240307"
     HUGGINGFACE_API_MODEL = "google/flan-t5-base"  # Publicly available, fast
