@@ -33,11 +33,10 @@ def test_analyze():
     print("\n📝 Testing Document Analysis Endpoint...")
     
     test_text = """
-    An incident is any unplanned interruption to an IT service. The goal of
-    incident management is to restore normal service operation as quickly as
-    possible while minimizing business impact. Priority is derived from impact
-    and urgency, and P1 incidents carry the tightest response and resolution
-    targets.
+    Core aeration pulls small plugs of soil out of the lawn to relieve
+    compaction and let air, water, and nutrients reach the roots. It is best
+    done once a year in the fall, and pairs well with overseeding since the
+    seed falls into the aeration holes for good soil contact.
     """
 
     payload = {
@@ -68,7 +67,7 @@ def test_query_with_followup():
     print("\n💬 Testing Query with Follow-up Questions...")
     
     payload = {
-        "query": "What is the resolution target for a P1 incident?",
+        "query": "When is the best time to overseed a lawn?",
         "k": 3,
         "provider": "gemini"
     }

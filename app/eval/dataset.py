@@ -37,72 +37,69 @@ class EvalCase:
 
 GOLDEN_CASES: List[EvalCase] = [
     EvalCase(
-        id="p1-resolution-target",
-        query="What is the resolution target for a P1 incident?",
+        id="pet-safe-after-treatment",
+        query="How long until my lawn is safe for pets after a treatment?",
         intent="grounded",
-        expected_keywords=["4 hours", "critical"],
+        expected_keywords=["dry", "1 to 2 hours"],
         stub_context=(
-            "Source: incident_management_guide.md\n"
-            "Content: P1 (Critical) incidents are enterprise-wide outages. The "
-            "target response is 15 minutes and the target resolution is 4 hours."
+            "Source: fertilization_weed_control.md\n"
+            "Content: After a treatment, keep kids and pets off the lawn until it "
+            "is fully dry, usually 1 to 2 hours."
         ),
     ),
     EvalCase(
-        id="emergency-change-approval",
-        query="Who approves an emergency change?",
+        id="sprinkler-winterization",
+        query="Why do sprinkler systems need to be winterized?",
         intent="grounded",
-        expected_keywords=["ecab", "emergency"],
+        expected_keywords=["freeze", "pipes"],
         stub_context=(
-            "Source: change_management_process.md\n"
-            "Content: An emergency change is reviewed by the Emergency Change "
-            "Advisory Board (ECAB) with expedited approval and retrospective "
-            "documentation."
+            "Source: sprinkler_system_guide.md\n"
+            "Content: Before the first hard freeze we blow compressed air through "
+            "each zone. Water left in pipes freezes, expands, and cracks them."
         ),
     ),
     EvalCase(
-        id="error-budget-meaning",
-        query="What is an error budget?",
+        id="best-time-overseed",
+        query="When is the best time to overseed a lawn?",
         intent="grounded",
-        expected_keywords=["error budget", "downtime"],
+        expected_keywords=["fall"],
         stub_context=(
-            "Source: sla_slo_management.md\n"
-            "Content: An error budget is the allowable amount of failure. For a "
-            "99.9% availability SLO, the error budget is about 43 minutes of "
-            "downtime per month."
+            "Source: seeding_aeration.md\n"
+            "Content: The best time to overseed is early fall, with warm soil, "
+            "cool air, and fewer weeds competing. Spring is the second-best window."
         ),
     ),
     EvalCase(
-        id="least-privilege",
-        query="What does the principle of least privilege mean?",
+        id="mowing-height",
+        query="What height should the lawn be mowed at?",
         intent="grounded",
-        expected_keywords=["least privilege", "minimum"],
+        expected_keywords=["3", "inches"],
         stub_context=(
-            "Source: identity_access_management.md\n"
-            "Content: Least privilege means granting users the minimum access "
-            "needed to do their job, and nothing more."
+            "Source: lawn_mowing_service.md\n"
+            "Content: We mow most cool-season grasses at 3 to 3.5 inches. We never "
+            "remove more than one third of the blade in a single cut."
         ),
     ),
     EvalCase(
-        id="out-of-scope-salary",
-        query="What is the average salary of a service desk analyst?",
+        id="out-of-scope-tree-removal",
+        query="Can you remove a large dead oak tree and grind the stump?",
         intent="refusal",
         expected_keywords=[],
         stub_context=(
-            "Source: incident_management_guide.md\n"
-            "Content: The incident lifecycle covers identification, "
-            "categorization, prioritization, investigation, resolution, and "
-            "closure."
+            "Source: tree_brush_trimming.md\n"
+            "Content: We trim and prune small to medium trees and shrubs. We do "
+            "not do large tree removal or stump grinding."
         ),
     ),
     EvalCase(
-        id="out-of-scope-kubernetes",
-        query="How do I configure a Kubernetes ingress controller?",
+        id="out-of-scope-pool",
+        query="Do you install and maintain swimming pools?",
         intent="refusal",
         expected_keywords=[],
         stub_context=(
-            "Source: sla_slo_management.md\n"
-            "Content: An SLA is a commitment between the service provider and the "
-            "customer, such as resolving P1 incidents within 4 hours."
+            "Source: services_overview.md\n"
+            "Content: GreenScape offers irrigation, lawn care, and yard "
+            "maintenance services."
         ),
     ),
     EvalCase(

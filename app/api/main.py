@@ -1,5 +1,5 @@
 """
-FastAPI Backend for PS Knowledge Copilot
+FastAPI Backend for GreenScape Copilot
 
 This API serves as the backend for the React frontend, providing:
 - /api/query - Ask questions to the knowledge base
@@ -87,7 +87,7 @@ def get_llm(provider: str) -> LLMConnector:
 async def lifespan(app: FastAPI):
     """Application lifespan handler for startup/shutdown."""
     # Startup
-    print("🚀 Starting PS Knowledge Copilot API...")
+    print("🚀 Starting GreenScape Copilot API...")
     
     # Pre-warm the LLM so it's ready for the first request
     print("🔄 Pre-warming LLM connection...")
@@ -120,8 +120,8 @@ async def lifespan(app: FastAPI):
 
 # Create FastAPI app
 app = FastAPI(
-    title="PS Knowledge Copilot API",
-    description="RAG-powered knowledge assistant for enterprise IT Professional Services",
+    title="GreenScape Copilot API",
+    description="RAG-powered knowledge assistant for GreenScape Lawn & Landscape employees",
     version="1.0.0",
     lifespan=lifespan,
     docs_url="/api/docs",

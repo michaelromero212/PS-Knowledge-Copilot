@@ -45,7 +45,7 @@ function ChatInterface({
                         value={queryInput || ''}
                         onChange={(e) => setQueryInput(e.target.value)}
                         onKeyDown={handleKeyDown}
-                        placeholder="e.g., What is the resolution target for a P1 incident?"
+                        placeholder="e.g., How long until my lawn is safe for pets after a treatment?"
                         disabled={isLoading}
                         aria-label="Enter your question"
                         style={{ flex: 1 }}

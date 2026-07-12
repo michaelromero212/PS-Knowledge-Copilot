@@ -72,7 +72,7 @@ def stress_test():
     
     # 4. Latency Check
     print("\n[TEST 4] Latency Check (Standard Query)")
-    query = "What is the resolution target for a P1 incident?"
+    query = "When is the best time to overseed a lawn?"
     start_time = time.time()
     docs = retriever.retrieve(query, k=3)
     answer = llm.generate_answer(query, docs)

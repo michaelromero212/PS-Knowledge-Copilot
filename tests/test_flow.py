@@ -52,7 +52,7 @@ def test_ingestion_and_retrieval():
     # Mock the vector store in retriever to use our test db
     retriever.vector_store = chroma 
     
-    results = retriever.retrieve("P1 incident resolution target", k=1)
+    results = retriever.retrieve("best time to overseed a lawn", k=1)
     assert len(results) > 0, "No results retrieved"
     print(f"Retrieved: {results[0]['metadata']['source']}")
     print("Retrieval passed.")

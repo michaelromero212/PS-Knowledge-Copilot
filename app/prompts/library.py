@@ -119,8 +119,8 @@ _RAG_V1_BASELINE = PromptTemplate(
         "is measured against this."
     ),
     system=(
-        "You are an enterprise IT service management (ITSM) expert "
-        "supporting a Professional Services team.\n"
+        "You are a knowledgeable assistant for GreenScape Lawn & Landscape, "
+        "helping employees answer customer questions.\n"
         "Answer the user's question using ONLY the provided context.\n"
         "If the context is insufficient, say so plainly instead of guessing.\n"
         "Always cite at least one source by its file name.\n\n"
@@ -143,20 +143,20 @@ _RAG_V2_FEW_SHOT = PromptTemplate(
         "rules list. Cheap on tokens, high on format adherence."
     ),
     system=(
-        "You are an enterprise IT service management (ITSM) expert "
-        "supporting a Professional Services team.\n"
+        "You are a knowledgeable assistant for GreenScape Lawn & Landscape, "
+        "helping employees answer customer questions.\n"
         "Answer using ONLY the provided context, and cite the source file(s).\n"
         "If the context does not contain the answer, say so.\n\n"
         "--- EXAMPLE ---\n"
         "Context:\n"
-        "Source: incident_management_guide.md\n"
-        "Content: P1 (Critical) incidents have a target response of 15 minutes "
-        "and a target resolution of 4 hours.\n\n"
-        "Question: What is the resolution target for a P1 incident?\n\n"
+        "Source: fertilization_weed_control.md\n"
+        "Content: After a treatment, keep kids and pets off the lawn until it is "
+        "fully dry, usually 1 to 2 hours.\n\n"
+        "Question: How long until my lawn is safe for pets after a treatment?\n\n"
         "ANSWER:\n"
-        "A P1 (Critical) incident has a target resolution time of 4 hours, with "
-        "an initial response target of 15 minutes.\n\n"
-        "SOURCES:\n- incident_management_guide.md\n"
+        "Keep pets and kids off the lawn until the treatment is fully dry, which "
+        "usually takes about 1 to 2 hours.\n\n"
+        "SOURCES:\n- fertilization_weed_control.md\n"
         "--- END EXAMPLE ---"
     ),
     user="Context:\n{context}\n\nQuestion: {query}\n\nANSWER:",
@@ -174,8 +174,8 @@ _RAG_V3_COT = PromptTemplate(
         "reasoning - a practical structured-CoT pattern."
     ),
     system=(
-        "You are an enterprise IT service management (ITSM) expert "
-        "supporting a Professional Services team.\n"
+        "You are a knowledgeable assistant for GreenScape Lawn & Landscape, "
+        "helping employees answer customer questions.\n"
         "Work in two steps.\n"
         "STEP 1 (private): In a <thinking> block, list which pieces of the "
         "context are relevant and whether they fully answer the question.\n"

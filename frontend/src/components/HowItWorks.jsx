@@ -25,7 +25,7 @@ function Flow({ steps }) {
 
 function HowItWorks({ onTryIt }) {
     const ingestSteps = [
-        { n: '1', title: 'Knowledge docs', sub: '8 ITSM markdown files' },
+        { n: '1', title: 'Knowledge docs', sub: '8 lawn-care guides' },
         { n: '2', title: 'Chunk', sub: '~800 chars, 150 overlap' },
         { n: '3', title: 'Embed', sub: 'MiniLM · 384-dim' },
         { n: '4', title: 'ChromaDB', sub: 'vector store', accent: true },

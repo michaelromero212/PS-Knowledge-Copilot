@@ -13,7 +13,7 @@ from app.rag.llm_connector import LLMConnector
 
 def simulate_ps_workflow():
     print("\n=======================================================")
-    print("🤖 PS KNOWLEDGE COPILOT - SIMULATION RUN")
+    print("🤖 GREENSCAPE COPILOT - SIMULATION RUN")
     print("=======================================================\n")
     
     # Initialize
@@ -43,24 +43,24 @@ def simulate_ps_workflow():
     # 2. Simulate PS Questions
     ps_questions = [
         {
-            "role": "Service Desk Analyst",
-            "query": "What is the resolution target for a P1 incident?",
-            "intent": "Incident Management"
+            "role": "Front Desk",
+            "query": "How long until my lawn is safe for pets after a treatment?",
+            "intent": "Fertilization"
         },
         {
-            "role": "Change Manager",
-            "query": "Who approves an emergency change?",
-            "intent": "Change Management"
+            "role": "Scheduler",
+            "query": "Why do sprinkler systems need to be winterized?",
+            "intent": "Irrigation"
         },
         {
-            "role": "Security Engineer",
-            "query": "What does the principle of least privilege mean?",
-            "intent": "Access Management"
+            "role": "Crew Lead",
+            "query": "What height should the lawn be mowed at?",
+            "intent": "Mowing"
         },
         {
-            "role": "Service Delivery Manager",
-            "query": "What is an error budget?",
-            "intent": "SLA Management"
+            "role": "Sales Rep",
+            "query": "When is the best time to overseed a lawn?",
+            "intent": "Seeding"
         }
     ]
 

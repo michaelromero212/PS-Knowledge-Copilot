@@ -37,7 +37,7 @@ class QueryRequest(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
-                "query": "What is the resolution target for a P1 incident?",
+                "query": "How long until my lawn is safe for pets after a treatment?",
                 "k": 3,
                 "provider": "gemini"
             }
@@ -64,15 +64,15 @@ class QueryResponse(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
-                "answer": "A P1 (Critical) incident has a target resolution of 4 hours...",
+                "answer": "Keep pets and kids off the lawn until the treatment is fully dry, about 1 to 2 hours...",
                 "sources": [
                     {
-                        "content": "P1 (Critical) incidents have a target resolution of 4 hours...",
-                        "source": "incident_management_guide.md",
+                        "content": "After a treatment, keep kids and pets off the lawn until it is fully dry...",
+                        "source": "fertilization_weed_control.md",
                         "chunk_index": 0
                     }
                 ],
-                "query": "What is the resolution target for a P1 incident?",
+                "query": "How long until my lawn is safe for pets after a treatment?",
                 "provider": "gemini",
                 "processing_time_ms": 1234.56
             }

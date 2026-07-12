@@ -1,6 +1,6 @@
-# 🧠 PS Knowledge Copilot
+# 🌱 GreenScape Copilot
 
-An internal AI "Knowledge Assistant" for enterprise IT Professional Services (PS) teams. This tool ingests IT service management documentation — incident and change management, ServiceNow workflows, SLAs, access management, and more — and provides instant, accurate answers to complex support questions using Retrieval-Augmented Generation (RAG).
+An internal AI "Knowledge Assistant" for the employees of GreenScape Lawn & Landscape, a small business offering sprinkler installs, lawn care (mowing, fertilization, seeding), and yard maintenance (tree & brush trimming). This tool ingests the company's service guides, policies, and FAQs and gives staff instant, accurate answers to customer questions using Retrieval-Augmented Generation (RAG).
 
 ## 📸 Screenshots
 
@@ -26,7 +26,7 @@ Click "Analyze with AI" on any retrieved source to get an instant summary, relev
 ---
 
 ### Full Interface with Source Citations
-The complete view shows AI-powered answers with intelligent source citations from the enterprise IT knowledge base (Slack threads, Google Drive, Confluence, email digests), each linked to their original chunk and source file.
+The complete view shows AI-powered answers with intelligent source citations from the company knowledge base (service guides, field SOPs, the office handbook, and the customer-service FAQ), each linked to their original chunk and source file.
 
 ![Full Interface](docs/images/full_interface.png)
 
@@ -146,27 +146,27 @@ python -m app.eval.runner --provider gemini --save results.json
     App at `http://localhost:5173`.
     </details>
 
-## 👥 How IT PS Teams Use This
+## 👥 How the Team Uses This
 
-This tool is designed to reduce "tribal knowledge" loss and speed up service delivery.
+This tool helps front-desk staff and crews answer customer questions consistently, without hunting down the owner or a veteran employee.
 
-### 1. The Service Desk Analyst 🛠️
-**Scenario**: Triaging an urgent outage.
--   **Query**: *"What is the resolution target for a P1 incident?"*
--   **Result**: The Copilot returns the 4-hour resolution / 15-minute response targets, citing `incident_management_guide.md`.
--   **Benefit**: Saves time searching through Slack or Confluence during a live incident.
+### 1. The Front Desk 🛠️
+**Scenario**: A customer calls after a fertilization visit.
+-   **Query**: *"How long until my lawn is safe for pets after a treatment?"*
+-   **Result**: The Copilot answers "until it's fully dry, about 1–2 hours," citing `fertilization_weed_control.md`.
+-   **Benefit**: A confident, correct answer on the spot — no guessing.
 
-### 2. The Change Manager 🏗️
-**Scenario**: Approving a time-sensitive fix.
--   **Query**: *"Who approves an emergency change?"*
--   **Result**: Explains the Emergency CAB (ECAB) process and retrospective documentation, citing `change_management_process.md`.
--   **Benefit**: Ensures process consistency and audit readiness.
+### 2. The Scheduler 🗓️
+**Scenario**: Booking fall services.
+-   **Query**: *"When is the best time to overseed a lawn?"*
+-   **Result**: Recommends early fall, citing `seeding_aeration.md`.
+-   **Benefit**: Sets the right expectation and books the service in the right season.
 
-### 3. The Security Engineer 🔐
-**Scenario**: Reviewing access for a new hire.
--   **Query**: *"What does the principle of least privilege mean?"*
--   **Result**: Summarizes least privilege and RBAC guidance, citing `identity_access_management.md`.
--   **Benefit**: Provides authoritative, documented backing for access decisions.
+### 3. The Sales Rep 🌱
+**Scenario**: A homeowner asks about sprinkler upkeep.
+-   **Query**: *"Why do sprinkler systems need to be winterized?"*
+-   **Result**: Explains that trapped water freezes and cracks pipes, citing `sprinkler_system_guide.md`.
+-   **Benefit**: Turns a question into an upsell for a winterization visit.
 
 ## 🔄 Ingestion Workflow
 
@@ -216,4 +216,4 @@ python tests/test_llm_features.py
 
 ## 📝 License
 
-Internal tool for enterprise IT Professional Services teams.
+Internal tool for GreenScape Lawn & Landscape employees.

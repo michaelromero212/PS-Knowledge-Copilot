@@ -100,12 +100,12 @@ def test_context_is_fenced_as_untrusted():
 # --------------------------------------------------------------------------- #
 
 def test_citation_score_detects_source():
-    answer = "See incident_management_guide.md for details."
-    assert scorers.citation_score(answer, ["incident_management_guide.md"]) == 1.0
+    answer = "See fertilization_weed_control.md for details."
+    assert scorers.citation_score(answer, ["fertilization_weed_control.md"]) == 1.0
 
 
 def test_citation_score_zero_when_absent():
-    assert scorers.citation_score("no citation here", ["sla_slo_management.md"]) == 0.0
+    assert scorers.citation_score("no citation here", ["seeding_aeration.md"]) == 0.0
 
 
 def test_format_adherence_full_credit():
@@ -114,8 +114,8 @@ def test_format_adherence_full_credit():
 
 
 def test_grounding_rewards_overlap():
-    context = "A P1 incident has a target resolution of four hours"
-    grounded = "A P1 incident resolution target is four hours"
+    context = "Overseeding a lawn is best done in early fall"
+    grounded = "Overseeding is best in early fall"
     hallucinated = "Kubernetes ingress uses nginx annotations"
     assert scorers.grounding_score(grounded, context) > scorers.grounding_score(
         hallucinated, context
@@ -150,8 +150,8 @@ def test_complexity_normalization():
 
 
 def test_clean_answer_strips_scaffolding():
-    raw = "ANSWER:\nA P1 incident resolves in 4 hours.\n\nSOURCES:\n- incident.md"
-    assert LLMConnector._clean_answer(raw) == "A P1 incident resolves in 4 hours."
+    raw = "ANSWER:\nOverseed in early fall.\n\nSOURCES:\n- seeding_aeration.md"
+    assert LLMConnector._clean_answer(raw) == "Overseed in early fall."
 
 
 def test_clean_answer_passthrough_when_no_markers():

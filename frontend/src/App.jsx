@@ -51,8 +51,8 @@ function App() {
                             <path d="M16 8V16M16 16L8 12M16 16L24 12M16 16V24" stroke="#FF3621" strokeWidth="1.5" />
                         </svg>
                         <div>
-                            <h1>PS Knowledge Copilot</h1>
-                            <p className="header-subtitle">Enterprise IT Professional Services</p>
+                            <h1>GreenScape Copilot</h1>
+                            <p className="header-subtitle">Lawn &amp; Landscape Team Assistant</p>
                         </div>
                     </div>
                     <div className="header-status">
@@ -132,7 +132,7 @@ function App() {
                             <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                         <h3>Ask a Question</h3>
-                        <p>Enter a question about IT service management, incidents, change, or access.</p>
+                        <p>Ask about our services, scheduling, pricing, lawn care, or sprinklers.</p>
 
                         <QuickActions onSelect={handleQuickActionSelect} />
                     </div>
@@ -151,7 +151,7 @@ function App() {
             {/* Footer */}
             <footer className="app-footer">
                 <div className="footer-content">
-                    <p>PS Knowledge Copilot • Powered by RAG + LLM</p>
+                    <p>GreenScape Copilot • Powered by RAG + LLM</p>
                 </div>
             </footer>
         </div>
@@ -160,10 +160,10 @@ function App() {
 
 function QuickActions({ onSelect }) {
     const quickQueries = [
-        "What is the resolution target for a P1 incident?",
-        "Who approves an emergency change?",
-        "What does least privilege mean?",
-        "What is an error budget?",
+        "How long until my lawn is safe for pets after a treatment?",
+        "When is the best time to overseed a lawn?",
+        "Why do sprinkler systems need to be winterized?",
+        "How often should I water my lawn?",
     ]
 
     return (
