@@ -1,9 +1,9 @@
 /**
  * How It Works page
  *
- * A demo-oriented explainer of the RAG pipeline: how documents become a
- * searchable knowledge base, how a question turns into a grounded answer, and
- * the layers that keep answers accurate.
+ * A plain-language explainer aimed at a non-technical business owner: what the
+ * assistant does, how it fits into day-to-day work, and why its answers can be
+ * trusted. Deliberately avoids jargon (embeddings, vectors, prompts, etc.).
  */
 
 function Flow({ steps }) {
@@ -24,83 +24,103 @@ function Flow({ steps }) {
 }
 
 function HowItWorks({ onTryIt }) {
-    const ingestSteps = [
-        { n: '1', title: 'Knowledge docs', sub: '8 lawn-care guides' },
-        { n: '2', title: 'Chunk', sub: '~800 chars, 150 overlap' },
-        { n: '3', title: 'Embed', sub: 'MiniLM · 384-dim' },
-        { n: '4', title: 'ChromaDB', sub: 'vector store', accent: true },
+    const setupSteps = [
+        { n: '1', title: 'Your know-how', sub: 'guides, pricing, FAQs, policies' },
+        { n: '2', title: 'Organized for you', sub: 'like a smart filing cabinet', accent: true },
     ]
 
-    const querySteps = [
-        { n: '1', title: 'Question', sub: 'user asks' },
-        { n: '2', title: 'Guardrails', sub: 'injection · PII', accent: true },
-        { n: '3', title: 'Vector search', sub: 'top-3 chunks' },
-        { n: '4', title: 'Grounded prompt', sub: 'context + rules', accent: true },
-        { n: '5', title: 'Gemini', sub: 'generates answer' },
-        { n: '6', title: 'Cited answer', sub: 'with citations', accent: true },
+    const everydaySteps = [
+        { n: '1', title: 'A question', sub: 'asked in plain English' },
+        { n: '2', title: 'Finds the answer', sub: 'in your own documents', accent: true },
+        { n: '3', title: 'Clear reply', sub: 'with the source shown', accent: true },
     ]
 
-    const accuracy = [
+    const fits = [
         {
-            title: 'Grounded generation',
-            body: 'The model is instructed to answer only from the retrieved context — and to say when the context is insufficient rather than guess.',
+            title: 'On the phone & front desk',
+            body: 'Answer customer questions on the spot — pricing, scheduling, what a service includes — without putting them on hold.',
         },
         {
-            title: 'Source citations',
-            body: 'Every answer links back to the document chunks it used, shown alongside the answer so a human can verify it in one glance.',
+            title: 'New team members',
+            body: 'New hires get up to speed fast and find answers themselves instead of interrupting a manager.',
         },
         {
-            title: 'Safety guardrails',
-            body: 'User input is screened for prompt injection and PII, and retrieved text is fenced as untrusted data to block indirect injection.',
+            title: 'Everyone says the same thing',
+            body: 'Consistent, correct answers across the whole team, so customers hear one clear story.',
         },
         {
-            title: 'Measured, not assumed',
-            body: 'An offline eval harness scores prompt variants on citation, grounding, and correct refusal — so changes are validated with data.',
+            title: 'Always on call',
+            body: "Your business's know-how is available any time — even when your most experienced people are out in the field.",
         },
     ]
 
-    const stack = ['React + Vite', 'FastAPI', 'ChromaDB', 'Sentence-Transformers', 'Google Gemini']
+    const trust = [
+        {
+            title: 'Only your information',
+            body: "It answers from your company's own documents — not random guesses from the internet.",
+        },
+        {
+            title: 'Shows its sources',
+            body: 'Every answer points to the exact document it came from, so anyone can double-check it.',
+        },
+        {
+            title: "Won't make things up",
+            body: "If the answer isn't in your documents, it says so instead of guessing.",
+        },
+    ]
 
     return (
         <div className="hiw">
             <section className="hiw-intro">
                 <h2>How it works</h2>
                 <p>
-                    This is a Retrieval-Augmented Generation (RAG) assistant. Instead of asking a
-                    language model to answer from memory — where it can confidently invent facts —
-                    it retrieves the most relevant passages from a curated knowledge base first,
-                    then answers <em>only</em> from those passages and cites them.
+                    Think of it as a super-organized binder of everything about your business —
+                    with a helper who can instantly find the right page and read the answer back.
+                    Your team asks a question in plain English and gets a clear, trustworthy answer
+                    pulled straight from your own guides and policies.
                 </p>
             </section>
 
             <section className="hiw-lane">
                 <div className="hiw-lane-head">
-                    <span className="hiw-lane-badge">Stage 1</span>
-                    <h3>Ingestion — building the knowledge base (offline)</h3>
+                    <span className="hiw-lane-badge">Setup · once</span>
+                    <h3>We load your business knowledge</h3>
                 </div>
                 <p className="hiw-lane-desc">
-                    Documents are split into overlapping chunks, converted into embedding vectors,
-                    and stored in a local vector database. This runs once, up front.
+                    You hand over what you already have — service guides, pricing, FAQs, policies —
+                    and it gets organized so any topic can be found in a second.
                 </p>
-                <Flow steps={ingestSteps} />
+                <Flow steps={setupSteps} />
             </section>
 
             <section className="hiw-lane">
                 <div className="hiw-lane-head">
-                    <span className="hiw-lane-badge">Stage 2</span>
-                    <h3>Query — answering a question (live)</h3>
+                    <span className="hiw-lane-badge">Every day</span>
+                    <h3>Your team asks, it answers</h3>
                 </div>
                 <p className="hiw-lane-desc">
-                    A question is screened, embedded, and matched against the store. The top matches
-                    become context for a grounded prompt that the LLM answers with citations.
+                    Anyone on the team types a question the way they'd say it out loud. The assistant
+                    looks it up in your documents and replies in plain language.
                 </p>
-                <Flow steps={querySteps} />
+                <Flow steps={everydaySteps} />
             </section>
 
             <section className="hiw-accuracy">
-                <h3>How answers stay accurate</h3>
+                <h3>Where it helps in your business</h3>
                 <div className="hiw-cards">
-                    {accuracy.map((a, i) => (
+                    {fits.map((a, i) => (
+                        <div className="hiw-card" key={i}>
+                            <h4>{a.title}</h4>
+                            <p>{a.body}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <section className="hiw-accuracy">
+                <h3>Why you can trust the answers</h3>
+                <div className="hiw-cards">
+                    {trust.map((a, i) => (
                         <div className="hiw-card" key={i}>
                             <h4>{a.title}</h4>
                             <p>{a.body}</p>
@@ -110,12 +130,6 @@ function HowItWorks({ onTryIt }) {
             </section>
 
             <section className="hiw-stack">
-                <h3>Built with</h3>
-                <div className="hiw-chips">
-                    {stack.map((s) => (
-                        <span className="hiw-chip" key={s}>{s}</span>
-                    ))}
-                </div>
                 <button className="hiw-cta" onClick={onTryIt}>Try it — ask a question →</button>
             </section>
         </div>
