@@ -117,34 +117,30 @@ python -m app.eval.runner --provider gemini --save results.json
     cd ..
     ```
 
-5.  **Run everything with one command** (recommended):
+    > ⚠️ **Never open `frontend/index.html` directly** (double-clicking the file).
+    > It will render blank — this is a React/Vite app whose JavaScript must be
+    > served by a web server, not loaded from `file://`. Always use a URL below.
+
+5.  **Run it — pick one:**
+
+    **A. Single server (simplest — recommended for just using/demoing the app):**
+    ```bash
+    cd frontend && npm run build && cd ..      # build the UI once
+    source venv/bin/activate
+    uvicorn app.api.main:app --port 8000       # serves the UI + API together
+    ```
+    Then open **`http://localhost:8000`**. The backend serves the built frontend and
+    the API from the same place, and auto-connects to Gemini on boot.
+
+    **B. Hot-reload dev (for editing the frontend):**
     ```bash
     ./dev.sh
     ```
-    This starts the backend (`:8000`, which auto-connects to Gemini on boot) **and**
-    the frontend (`:5173`) together. Open `http://localhost:5173`. Press `Ctrl+C` to stop both.
+    Starts the backend (`:8000`) **and** the Vite dev server (`:5173`) together, with
+    live reload. Open **`http://localhost:5173`**. Press `Ctrl+C` to stop both.
 
-    > ⚠️ Running only `npm run dev` starts the frontend alone — every query will show
-    > "unknown error" because there is no backend to answer it. Use `./dev.sh` (or start
-    > both servers manually below).
-
-    <details>
-    <summary>Or run the two servers manually</summary>
-
-    **Backend** (Terminal 1):
-    ```bash
-    source venv/bin/activate
-    uvicorn app.api.main:app --reload --port 8000
-    ```
-    API + docs at `http://localhost:8000/api/docs`.
-
-    **Frontend** (Terminal 2):
-    ```bash
-    cd frontend
-    npm run dev
-    ```
-    App at `http://localhost:5173`.
-    </details>
+    > Tip: `npm run dev` alone (without the backend) will show "unknown error" on every
+    > query, because there's no API to answer it. Use `./dev.sh`, which starts both.
 
 ## 👥 How the Team Uses This
 

@@ -418,12 +418,24 @@ async def get_ai_status(provider: str = "gemini"):
         raise HTTPException(status_code=500, detail=f"Status check failed: {str(e)}")
 
 
-# Root redirect to docs
-@app.get("/", include_in_schema=False)
-async def root():
-    """Redirect to API documentation."""
-    from fastapi.responses import RedirectResponse
-    return RedirectResponse(url="/api/docs")
+# Serve the built React frontend (if it exists) so the whole app is available
+# from this one server at http://localhost:8000 — no separate dev server needed.
+# Build it with:  cd frontend && npm run build
+# This mount must come AFTER all /api routes so they take precedence.
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
+
+_frontend_dist = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../../frontend/dist")
+)
+
+if os.path.isdir(_frontend_dist):
+    app.mount("/", StaticFiles(directory=_frontend_dist, html=True), name="frontend")
+else:
+    @app.get("/", include_in_schema=False)
+    async def root():
+        """Frontend not built yet — point to the API docs."""
+        return RedirectResponse(url="/api/docs")
 
 
 if __name__ == "__main__":
